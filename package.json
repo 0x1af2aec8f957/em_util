@@ -1,0 +1,27 @@
+{
+    "name": "em-util",
+    "version": "1.0.0",
+    "description": "Common methods based on JavaScript by ECMAScript 2015",
+    "main": "index.js",
+    "scripts": {
+        "example": "... node READEME.md"
+    },
+    "keywords": [
+                 "js-util",
+                 "javascript-util",
+                 "util",
+                 "es-util",
+                 "em-util",
+                 "ECMAScript-util"
+                 ],
+    "author": "603803799@qq.com",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/noteScript/em_util/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/noteScript/em_util"
+    },
+    "homepage": "https://github.com/noteScript/em_util/#readme"
+}
