@@ -13,7 +13,9 @@ npm install em-util
 > node import
 
 ``` bash
-import util from "em-util"
+import util from "em-util";
+
+console.dir(util);
 ```
 
 ##  License
