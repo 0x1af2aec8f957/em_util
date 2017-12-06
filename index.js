@@ -146,19 +146,19 @@ export default {
     return UA && /msie|trident/.test(UA)
   },
   _isIE9() {
-    return UA && UA.indexOf('msie 9.0') > 0
+    return UA && !!~UA.indexOf('msie 9.0')
   },
   _isEdge() {
-    return UA && UA.indexOf('edge/') > 0
+    return UA && !!~UA.indexOf('edge/')
   },
   _isAndroid() {
-    return UA && UA.indexOf('android') > 0
+    return UA && !!~UA.indexOf('android')
   },
   _isIOS() {
     return UA && /iphone|ipad|ipod|ios/.test(UA)
   },
   _isChrome() {
-    return UA && /chrome\/\d+/.test(UA) && !UA.indexOf('edge/') > 0
+    return UA && /chrome\/\d+/.test(UA) && !~UA.indexOf('edge/')
   },
   _URLEncode(clearString) { // url编码
     let output = '', x = 0;
