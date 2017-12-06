@@ -61,7 +61,7 @@ Object.assign(Object.prototype, {
   },
   values: Object.values ? Object.values : function () {
     const values = []; // for `window` on <=IE8
-    for (let [key, value] in this.entries()) values.push(value);
+    for (let [key, value] of this.entries()) values.push(value);
     return values;
   }
 });
