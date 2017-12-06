@@ -28,6 +28,9 @@ Object.assign(String.prototype, {
   trimAll() { // 去掉所有空格
     return this.replace(/\s/g, "")
   },
+  isNull() { // 是否为空[已经去掉空格后的判断]
+    return !!this.replace(/\s/g, "").length
+  },
   getTime() { // 时间转时间戳[单位:s]
     // this = '2014-04-23 18:55:49:123';
     return Date.parse(new Date(this));
