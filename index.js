@@ -14,7 +14,7 @@ const UA = !!window && window.navigator.userAgent.toLowerCase();
 
 if (window.HTMLElement) { // 扩展DOM方法
   Object.assign(HTMLElement.prototype, {
-    escape: HTMLElement.escape ? HTMLElement.escape : function () { // 需要借助he模块
+    escape() { // 需要借助he模块
       // https://mths.be/he v1.1.1
       return require('he').encode(String(this), {useNamedReferences: false});
     }
