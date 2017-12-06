@@ -29,11 +29,11 @@ Object.assign(Number.prototype, {
   isOdd() { // 是否是奇数
     return !!(this & true)
   },
-  toRounding() {//取整
-    return this | 0
+  toRounding() { // 取整
+    return this | false
   },
-  toHalf() { // 取半
-    return this >> 1
+  toHalf() { // 取半[仅仅适合整数！]
+    return this >> true
   }
 });
 
@@ -96,7 +96,7 @@ export default {
   },
   _output(e) { // 输出
     if (!!~location.origin.indexOf('localhost') || !!~location.origin.indexOf('127.0.0.1')) {
-      console.group(`%ctitle：${e.title}`, 'color:#0114fb;background-color:#01fb09');// 打印分组
+      console.group(`%ctitle：${e.title}`, 'color:#0114fb;background-color:#01fb09'); // 打印分组
       console.info(`%cfrom：${document.title}`, 'background-color:#077aec');
       console.dir(e.content);
       console.info('%cto：', 'background-color:#077aec');
