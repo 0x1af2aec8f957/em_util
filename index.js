@@ -56,16 +56,12 @@ Object.assign(String.prototype, {
 Object.assign(Object.prototype, {
   keys: Object.keys ? Object.keys : function () {
     const keys = [], has = Object.prototype.hasOwnProperty; // for `window` on <=IE8
-    for (let key in this) {
-      has.call(this, key) && keys.push(key);
-    }
+    for (let key in this) has.call(this, key) && keys.push(key);
     return keys;
   },
   values: Object.values ? Object.values : function () {
     const values = []; // for `window` on <=IE8
-    for (let [key, value] in this.entries()) {
-      values.push(value);
-    }
+    for (let [key, value] in this.entries()) values.push(value);
     return values;
   }
 });
@@ -75,30 +71,20 @@ Object.assign(Array.prototype, {
     return this.splice(index, number)
   },
   forEach: Array.forEach ? Array.forEach : function (fn, scope) { // <=IE8
-    for (let [i, x] of this.entries()) {
-      fn.call(scope, x, i);
-    }
+    for (let [i, x] of this.entries()) fn.call(scope, x, i);
   },
   map: Array.map ? Array.map : function (fn, scope) { // <=IE8
     const result = [];
-    for (let [i, x] of this.entries()) {
-      result.push(fn.call(scope, x, i, this));
-    }
+    for (let [i, x] of this.entries()) result.push(fn.call(scope, x, i, this));
     return result;
   },
   filter: Array.filter ? Array.filter : function (fn) {
     const ret = [];
-    for (let [i, x] of this.entries()) {
-      fn(x, i, this) && ret.push(x);
-    }
+    for (let [i, x] of this.entries()) fn(x, i, this) && ret.push(x);
     return ret;
   },
   some: Array.some ? Array.some : function (fn) {
-    for (let x of this) {
-      if (fn(x)) {
-        return true;
-      }
-    }
+    for (let x of this) if (fn(x)) return true;
     return false;
   }
 });
@@ -180,15 +166,12 @@ export default {
     const regex = /(^[a-zA-Z0-9-_.]*)/;
     while (x < clearString.length) {
       const match = regex.exec(clearString.substr(x));
-      if (match !== null && match.length > 1 && match[1] !== '') {
+      if (match !== null && match.length > 1 && !!match[1].length) {
         output += match[1];
         x += match[1].length;
       } else {
-        if (clearString.substr(x, 1) === ' ') {
-          // 原文在此用 clearString[x] == ' ' 做判断, 但ie不支持把字符串当作数组来访问,
-          // 修改后两种浏览器都可兼容
-          output += '+';
-        } else {
+        if (clearString.substr(x, 1) === ' ') output += '+'; // ie不支持把字符串当作数组来访问
+        else {
           const charCode = clearString.charCodeAt(x), hexVal = charCode.toString(16);
           output += `%${hexVal.length < 2 ? '0' : ''}${hexVal.toUpperCase()}`;
         }
@@ -207,9 +190,7 @@ export default {
       maxPos = $chars.length;
     /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
     let pwd = '';
-    for (let i = 0; i < len; i++) {
-      pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-    }
+    for (let i = 0; i < len; i++) pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
     return pwd;
   },
   _verification(data, reg) { // 验证
@@ -219,7 +200,8 @@ export default {
   _setCookie(c_name, value, expiredays) { // 设置cookie
     let exdate = new Date();
     exdate.setDate(exdate.getDate() + expiredays);
-    document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
+    document.cookie = c_name + "=" + escape(value) + ((expiredays === null) ? "" : ";expires=" + exdate.toGMTString());
+    return null
   },
   _getCookie(c_name) { // 获取cookie
     if (document.cookie.length > 0) {
@@ -233,17 +215,11 @@ export default {
     }
     return null
   },
-  _isPC() {
+  _isPC() { // 判断PC环境
     const userAgentInfo = navigator.userAgent,
       Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-    let flag = true;
-    for (let v = 0; v < Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) > 0) {
-        flag = false;
-        break;
-      }
-    }
-    return flag;
+    for (let x of Agents) if (!!~userAgentInfo.indexOf(x)) return false;
+    return true;
   }
 };
 /* }); */
