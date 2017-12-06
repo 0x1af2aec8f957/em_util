@@ -21,6 +21,35 @@ if (window.HTMLElement) { // 扩展DOM方法
   })
 }
 
+Object.assign(String.prototype, {
+  replaceAll(search, replacement) { // 全局替换
+    return this.replace(new RegExp(search, 'g'), replacement);
+  },
+  trimAll() { // 去掉所有空格
+    return this.replace(/\s/g, "")
+  },
+  getTime() { // 时间转时间戳[单位:s]
+    // this = '2014-04-23 18:55:49:123';
+    return Date.parse(new Date(this));
+  },
+  includes(e) { // 字符串包含[解决babel未转码成功的BUG]
+    return !!~this.indexOf(e)
+  }
+});
+
+Object.assign(Object.prototype, {
+  /* delete(key) { // 返回被删除的元素，是一个value！
+    const data = this[key];
+    return delete this[key], data;
+  }, */
+});
+
+Object.assign(Array.prototype, {
+  delete(index, number = 1) { // 返回被删除的元素，是一个数组！
+    return this.splice(index, number)
+  }
+});
+
 Object.assign(Number.prototype, {
   getTime() { // 时间戳转时间[单位:s]
     const date = new Date(this);
@@ -32,61 +61,8 @@ Object.assign(Number.prototype, {
   toRounding() { // 取整
     return this | false
   },
-  toHalf() { // 取半[仅仅适合整数！]
+  toHalf() { // 取半
     return this >> true
-  }
-});
-
-Object.assign(String.prototype, {
-  replaceAll: String.replaceAll ? String.replaceAll : function (search, replacement) { // 全局替换
-    return this.replace(new RegExp(search, 'g'), replacement);
-  },
-  trimAll: String.trimAll ? String.trimAll : function () { // 去掉所有空格
-    return this.replace(/\s/g, "")
-  },
-  getTime: String.getTime ? String.getTime : function () { // 时间转时间戳[单位:s]
-    // this = '2014-04-23 18:55:49:123';
-    return Date.parse(new Date(this));
-  },
-  includes: String.includes ? String.includes : function (e) { // 字符串包含[解决babel未转码成功的BUG]
-    return !!~this.indexOf(e)
-  }
-});
-
-Object.assign(Object.prototype, {
-  keys: Object.keys ? Object.keys : function () {
-    const keys = [], has = Object.prototype.hasOwnProperty; // for `window` on <=IE8
-    for (let key in this) has.call(this, key) && keys.push(key);
-    return keys;
-  },
-  values: Object.values ? Object.values : function () {
-    const values = []; // for `window` on <=IE8
-    for (let [key, value] of this.entries()) values.push(value);
-    return values;
-  }
-});
-
-Object.assign(Array.prototype, {
-  delete: Array.delete ? Array.delete : function (index, number = 1) { // 返回被删除的元素，是一个数组！
-    return this.splice(index, number)
-  },
-  forEach: Array.forEach ? Array.forEach : function (fn, scope) { // <=IE8
-    for (let [i, x] of this.entries()) fn.call(scope, x, i);
-    return null
-  },
-  map: Array.map ? Array.map : function (fn, scope) { // <=IE8
-    const result = [];
-    for (let [i, x] of this.entries()) result.push(fn.call(scope, x, i, this));
-    return result;
-  },
-  filter: Array.filter ? Array.filter : function (fn) {
-    const ret = [];
-    for (let [i, x] of this.entries()) fn(x, i, this) && ret.push(x);
-    return ret;
-  },
-  some: Array.some ? Array.some : function (fn) {
-    for (let x of this) if (fn(x)) return true;
-    return false;
   }
 });
 
