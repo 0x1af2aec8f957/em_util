@@ -72,6 +72,7 @@ Object.assign(Array.prototype, {
   },
   forEach: Array.forEach ? Array.forEach : function (fn, scope) { // <=IE8
     for (let [i, x] of this.entries()) fn.call(scope, x, i);
+    return null
   },
   map: Array.map ? Array.map : function (fn, scope) { // <=IE8
     const result = [];
@@ -102,7 +103,7 @@ export default {
       console.trace();
       console.groupEnd();
     } else {
-
+      // 预留欢迎信息
     }
   },
   _typeOf(obj) { // 精准判断数据类型
@@ -128,16 +129,13 @@ export default {
   _encrypt(key, iv, data) { // AES加密（node<==java,c,o-c;iv-向量)
     const cipher = require('crypto').createCipheriv('aes-128-cbc', key, iv);
     let crypted = cipher.update(data, 'utf8', 'binary');
-    crypted += cipher.final('binary');
-    crypted = new Buffer(crypted, 'binary').toString('base64');
-    return crypted;
+    return crypted += cipher.final('binary'), crypted = new Buffer(crypted, 'binary').toString('base64'), crypted;
   },
   _decrypt(key, iv, crypted) { // AES解密（node<==java,c,o-c;iv-向量)
     crypted = new Buffer(crypted, 'base64').toString('binary');
     const decipher = require('crypto').createDecipheriv('aes-128-cbc', key, iv);
     let decoded = decipher.update(crypted, 'binary', 'utf8');
-    decoded += decipher.final('utf8');
-    return decoded;
+    return decoded += decipher.final('utf8'), decoded;
   },
   _inBrowser() { // 是否是浏览器环境
     return !!window
@@ -161,9 +159,9 @@ export default {
     return UA && /chrome\/\d+/.test(UA) && !~UA.indexOf('edge/')
   },
   _URLEncode(clearString) { // url编码
+    const regex = /(^[a-zA-Z0-9-_.]*)/;
     let output = '', x = 0;
     clearString = clearString.toString();
-    const regex = /(^[a-zA-Z0-9-_.]*)/;
     while (x < clearString.length) {
       const match = regex.exec(clearString.substr(x));
       if (match !== null && match.length > 1 && !!match[1].length) {
@@ -199,9 +197,9 @@ export default {
   },
   _setCookie(c_name, value, expiredays) { // 设置cookie
     let exdate = new Date();
-    exdate.setDate(exdate.getDate() + expiredays);
-    document.cookie = c_name + "=" + escape(value) + ((expiredays === null) ? "" : ";expires=" + exdate.toGMTString());
-    return null
+    return exdate.setDate(exdate.getDate() + expiredays),
+      document.cookie = c_name + "=" + escape(value) + ((expiredays === null) ? "" : ";expires=" + exdate.toGMTString()),
+      null;
   },
   _getCookie(c_name) { // 获取cookie
     if (document.cookie.length > 0) {
