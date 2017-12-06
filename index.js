@@ -10,6 +10,8 @@
  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
  typeof define === 'function' && define.amd ? define(factory) : (global.util = factory());
  })(this, function () { */
+const UA = !!window && window.navigator.userAgent.toLowerCase();
+
 if (window.HTMLElement) { // 扩展DOM方法
   Object.assign(HTMLElement.prototype, {
     escape: HTMLElement.escape ? HTMLElement.escape : function () { // 需要借助he模块
@@ -100,8 +102,6 @@ Object.assign(Array.prototype, {
     return false;
   }
 });
-
-const UA = !!window && window.navigator.userAgent.toLowerCase();
 
 export default {
   _timeStamp() { // 获取当前时间戳【毫秒】
