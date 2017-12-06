@@ -29,7 +29,7 @@ Object.assign(String.prototype, {
     return this.replace(/\s/g, "")
   },
   isNull() { // 是否为空[已经去掉空格后的判断]
-    return !!this.replace(/\s/g, "").length
+    return !this.replace(/\s/g, "").length
   },
   getTime() { // 时间转时间戳[单位:s]
     // this = '2014-04-23 18:55:49:123';
@@ -50,6 +50,9 @@ Object.assign(Object.prototype, {
 Object.assign(Array.prototype, {
   delete(index, number = 1) { // 返回被删除的元素，是一个数组！
     return this.splice(index, number)
+  },
+  isNull() { // 是否为空
+    return !this.length
   }
 });
 
