@@ -25,6 +25,9 @@ Object.assign(String.prototype, {
   replaceAll(search, replacement) { // 全局替换
     return this.replace(new RegExp(search, 'g'), replacement);
   },
+  toNumber() { // 转数字(不支持负数)
+    return this.replace(/[^0-9]/ig, "") * 1
+  },
   trimAll() { // 去掉所有空格
     return this.replace(/\s/g, "")
   },
