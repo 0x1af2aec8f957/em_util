@@ -79,13 +79,12 @@ export default {
   _timeStamp() { // 获取当前时间戳【毫秒】
     return (new Date()).valueOf()
   },
-  _output(e) { // 输出
-    return (!!~location.origin.indexOf('localhost') || !!~location.origin.indexOf('127.0.0.1')) && (console.group(`%ctitle：${e.title}`, 'color:#0114fb;background-color:#01fb09'), // 打印分组
-      console.info(`%cfrom：${document.title}`, 'background-color:#077aec'),
-      console.dir(e.content),
-      console.info('%cto：', 'background-color:#077aec'),
-      console.trace(),
-      console.groupEnd()) || false/* 预留欢迎信息 */;
+  _output(e) { // 输出(线下输出，线上关闭)
+    return (!!~location.origin.indexOf('test') ||
+      !!~location.origin.indexOf('localhost') ||
+      !!~location.origin.indexOf('127.0.0.1')) &&
+      (console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content), true) ||
+      (!!document.referrer.length ? console.log(`------欢迎使用-${'em_util.js'}------`) : this._request('source') ? console.log(`------欢迎-${this._request('source')}-使用-${'em_util.js'}------`) : console.log('------使用-em_util.js------'))
   },
   _typeOf(obj) { // 精准判断数据类型
     const toString = Object.prototype.toString,
