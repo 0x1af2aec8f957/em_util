@@ -82,8 +82,7 @@ export default {
   _output(e) { // 输出(线下输出，线上关闭)
     return (!!~location.origin.indexOf('test') ||
       !!~location.origin.indexOf('localhost') ||
-      !!~location.origin.indexOf('127.0.0.1')) &&
-      (console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content))
+      !!~location.origin.indexOf('127.0.0.1')) && console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
   },
   _typeOf(obj) { // 精准判断数据类型
     const toString = Object.prototype.toString,
