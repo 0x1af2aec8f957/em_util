@@ -80,16 +80,12 @@ export default {
     return (new Date()).valueOf()
   },
   _output(e) { // 输出
-    if (!!~location.origin.indexOf('localhost') || !!~location.origin.indexOf('127.0.0.1')) {
-      console.group(`%ctitle：${e.title}`, 'color:#0114fb;background-color:#01fb09'); // 打印分组
-      console.info(`%cfrom：${document.title}`, 'background-color:#077aec');
-      console.dir(e.content);
-      console.info('%cto：', 'background-color:#077aec');
-      console.trace();
-      console.groupEnd();
-    } else {
-      // 预留欢迎信息
-    }
+    return (!!~location.origin.indexOf('localhost') || !!~location.origin.indexOf('127.0.0.1')) && (console.group(`%ctitle：${e.title}`, 'color:#0114fb;background-color:#01fb09'), // 打印分组
+      console.info(`%cfrom：${document.title}`, 'background-color:#077aec'),
+      console.dir(e.content),
+      console.info('%cto：', 'background-color:#077aec'),
+      console.trace(),
+      console.groupEnd()) || false/* 预留欢迎信息 */;
   },
   _typeOf(obj) { // 精准判断数据类型
     const toString = Object.prototype.toString,
@@ -149,10 +145,8 @@ export default {
     clearString = clearString.toString();
     while (x < clearString.length) {
       const match = regex.exec(clearString.substr(x));
-      if (match !== null && match.length > 1 && !!match[1].length) {
-        output += match[1];
-        x += match[1].length;
-      } else {
+      if (match !== null && match.length > 1 && !!match[1].length) output += match[1], x += match[1].length;
+      else {
         if (clearString.substr(x, 1) === ' ') output += '+'; // ie不支持把字符串当作数组来访问
         else {
           const charCode = clearString.charCodeAt(x), hexVal = charCode.toString(16);
