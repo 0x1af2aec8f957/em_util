@@ -56,6 +56,9 @@ Object.assign(Array.prototype, {
   },
   isNull() { // 是否为空
     return !this.length
+  },
+  clear() { // 清空数组
+    return this.length = 0
   }
 });
 
