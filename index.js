@@ -99,7 +99,8 @@ export default {
       '[object Document]': 'document',
       '[object HTMLDivElement]': 'div',
       '[object HTMLBodyElement]': 'body',
-      '[object HTMLDocument]': 'document'
+      '[object HTMLDocument]': 'document',
+      '[object HTMLHtmlElement]': 'html'
     }[Object.prototype.toString.call(obj)];
   },
   _encrypt(key, iv, data) { // AES加密（node<==java,c,o-c;iv-向量)
