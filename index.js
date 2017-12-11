@@ -44,10 +44,31 @@ Object.assign(String.prototype, {
 });
 
 Object.assign(Object.prototype, {
-  /* delete(key) { // 返回被删除的元素，是一个value！
+  /*delete(key) { // 返回被删除的元素，是一个value！
     const data = this[key];
     return delete this[key], data;
-  }, */
+  },
+  /!*!
+   * 对于同一个对象，防止扩展-->密封-->冻结这种操作是不可逆的。一旦该对象被冻结，是无法恢复到防止扩展或密封状态的。一旦该对象被密封，是无法恢复到防止扩展状态的。一旦对象被锁定，它将无法解锁!
+   *!/
+  isExtensible() { // 检测对象是否可扩展
+    return Object.isExtensible(this)
+  },
+  preventExtensions() { // 防止扩展[禁止为对象添加属性和方法。但已存在的属性和方法可以被修改或删除]
+    return Object.preventExtensions(this)
+  },
+  isSealed() { // 检测对象是否密封
+    return Object.isSealed(this)
+  },
+  seal() { // 密封[禁止为对象删除已存在的属性和方法。被密封的对象也是不可扩展的]
+    return Object.seal(this)
+  },
+  isFrozen() { // 检测对象是否冻结
+    return Object.isFrozen(this)
+  },
+  freeze() { // 冻结[禁止为对象修改已存在的属性和方法。所有字段均只读。被冻结的对象也是不可扩展和密封的]
+    return Object.freeze(this)
+  }*/
 });
 
 Object.assign(Array.prototype, {
