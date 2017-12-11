@@ -63,6 +63,9 @@ Object.assign(Array.prototype, {
 });
 
 Object.assign(Number.prototype, {
+  isNull() {
+    return !this.toString().length
+  },
   getTime() { // 时间戳转时间[单位:s]
     const date = new Date(this);
     return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -84,8 +87,9 @@ export default {
   },
   _output(e) { // 输出(线下输出，线上关闭)
     return (!!~location.origin.indexOf('test') ||
-      !!~location.origin.indexOf('localhost') ||
-      !!~location.origin.indexOf('127.0.0.1')) && console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
+      !!~location.origin.indexOf('http://localhost:') ||
+      !!~location.origin.indexOf('http://192.168.') ||
+      !!~location.origin.indexOf('http://127.0.0.1')) && console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
   },
   _typeOf(obj) { // 精准判断数据类型
     return {
