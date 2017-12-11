@@ -85,7 +85,7 @@ Object.assign(Array.prototype, {
 
 Object.assign(Number.prototype, {
   isNull() {
-    return ![...this].length
+    return !this.toString().length
   },
   getTime() { // 时间戳转时间[单位:s]
     const date = new Date(this);
