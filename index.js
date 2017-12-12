@@ -153,7 +153,7 @@ if (this.Object) for (let [key, value] of Object.entries(objFn)) Object.prototyp
 if (this.Array) for (let [key, value] of Object.entries(arrFn)) Array.prototype[key] || (Array.prototype[key] = value);
 if (this.Number) for (let [key, value] of Object.entries(numFn)) Number.prototype[key] || (Number.prototype[key] = value);
 
-export default {
+export default Object.assign({
   _timeStamp() { // 获取当前时间戳【毫秒】
     return (new Date()).valueOf()
   },
@@ -192,27 +192,6 @@ export default {
     const decipher = require('crypto').createDecipheriv('aes-128-cbc', key, iv);
     let decoded = decipher.update(crypted, 'binary', 'utf8');
     return decoded += decipher.final('utf8'), decoded;
-  },
-  _inBrowser() { // 是否是浏览器环境
-    return !!window
-  },
-  _isIE() {
-    return UA && /msie|trident/.test(UA)
-  },
-  _isIE9() {
-    return UA && !!~UA.indexOf('msie 9.0')
-  },
-  _isEdge() {
-    return UA && !!~UA.indexOf('edge/')
-  },
-  _isAndroid() {
-    return UA && !!~UA.indexOf('android')
-  },
-  _isIOS() {
-    return UA && /iphone|ipad|ipod|ios/.test(UA)
-  },
-  _isChrome() {
-    return UA && /chrome\/\d+/.test(UA) && !~UA.indexOf('edge/')
   },
   _URLEncode(clearString) { // url编码
     const regex = /(^[a-zA-Z0-9-_.]*)/;
@@ -266,6 +245,28 @@ export default {
       }
     }
     return null
+  }
+}, UA ? { // 浏览器方法
+  _inBrowser() { // 是否是浏览器环境
+    return !!window
+  },
+  _isIE() {
+    return UA && /msie|trident/.test(UA)
+  },
+  _isIE9() {
+    return UA && !!~UA.indexOf('msie 9.0')
+  },
+  _isEdge() {
+    return UA && !!~UA.indexOf('edge/')
+  },
+  _isAndroid() {
+    return UA && !!~UA.indexOf('android')
+  },
+  _isIOS() {
+    return UA && /iphone|ipad|ipod|ios/.test(UA)
+  },
+  _isChrome() {
+    return UA && /chrome\/\d+/.test(UA) && !~UA.indexOf('edge/')
   },
   _isPC() { // 判断PC环境
     const userAgentInfo = navigator.userAgent,
@@ -273,7 +274,7 @@ export default {
     for (let x of Agents) if (!!~userAgentInfo.indexOf(x)) return false;
     return true;
   }
-};
+} : null);
 
 /* }); */
 //github.com => https://github.com/noteScript/em_util.git
