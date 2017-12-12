@@ -161,10 +161,7 @@ export default {
     return (!!~location.origin.indexOf('test') ||
       !!~location.origin.indexOf('http://localhost:') ||
       !!~location.origin.indexOf('http://192.168.') ||
-      !!~location.origin.indexOf('http://127.0.0.1')) && console.log(` % ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`
-
-
-      , 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
+      !!~location.origin.indexOf('http://127.0.0.1:')) && console.log(` % ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
   },
   _typeOf(obj) { // 精准判断数据类型
     return {
@@ -228,13 +225,7 @@ export default {
         if (clearString.substr(x, 1) === ' ') output += '+'; // ie不支持把字符串当作数组来访问
         else {
           const charCode = clearString.charCodeAt(x), hexVal = charCode.toString(16);
-          output +=
-
-
-            `%${hexVal.length < 2 ? '0' : ''}${hexVal.toUpperCase()}`
-
-
-          ;
+          output += `%${hexVal.length < 2 ? '0' : ''}${hexVal.toUpperCase()}`;
         }
         x++;
       }
@@ -242,11 +233,7 @@ export default {
     return output;
   },
   _request(name) { // 获取原始的URL参数
-    const reg = new RegExp(
-      `(^|&)${name}=([^&]*)(&|$)`
-
-
-      , 'i'),
+    const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i'),
       r = window.location.search.substr(1).match(reg);
     return r !== null ? unescape(r[2]) : null;
   },
