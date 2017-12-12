@@ -222,7 +222,7 @@ export default {
       const match = regex.exec(clearString.substr(x));
       if (match !== null && match.length > 1 && !!match[1].length) output += match[1], x += match[1].length;
       else {
-        if (clearString.substr(x, 1) === ' ') output += '+'; // ie不支持把字符串当作数组来访问
+        if (!clearString.substr(x, 1).length) output += '+'; // ie不支持把字符串当作数组来访问
         else {
           const charCode = clearString.charCodeAt(x), hexVal = charCode.toString(16);
           output += `%${hexVal.length < 2 ? '0' : ''}${hexVal.toUpperCase()}`;
@@ -258,10 +258,10 @@ export default {
   _getCookie(c_name) { // 获取cookie
     if (document.cookie.length > 0) {
       let c_start = document.cookie.indexOf(c_name + "=");
-      if (c_start !== -1) {
+      if (!!~c_start) {
         c_start = c_start + c_name.length + 1;
         let c_end = document.cookie.indexOf(";", c_start);
-        if (c_end === -1) c_end = document.cookie.length;
+        if (!~c_end) c_end = document.cookie.length;
         return unescape(document.cookie.substring(c_start, c_end))
       }
     }
