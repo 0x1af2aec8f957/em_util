@@ -20,8 +20,8 @@ const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.use
     replaceAll(search, replacement) { // 全局替换
       return this.replace(new RegExp(search, 'g'), replacement);
     },
-    toNumber() { // 提取数字(不支持负数)
-      return this.replace(/[^0-9]/ig, "") * true
+    toNumber() { // 提取数字(不支持负数，支持小数)
+      return this.replace(/[^0-9|.]/ig, "") * true
     },
     trimAll() { // 去掉所有空格
       return this.replace(/\s/g, "")
