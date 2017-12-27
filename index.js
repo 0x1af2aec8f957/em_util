@@ -56,9 +56,9 @@ const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.use
         entries() {
             return Object.entries(this)
         },
-        repeat() { //复制对象
+        /* repeat() { //复制对象[ES7]
             return {...this, ...this}
-        },
+        }, */
         toJSON() { // 转成JSON字符串
             return JSON.stringify(this)
         },
