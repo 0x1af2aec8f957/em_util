@@ -22,5 +22,5 @@ console.dir(util);
 
 [MIT](http://opensource.org/licenses/MIT)
 
-[em-util.js@1.0.0](https://github.com/noteScript/em_util.git)
+[em-util.js](https://github.com/noteScript/em_util.git)
 
