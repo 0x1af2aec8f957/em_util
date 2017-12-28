@@ -1,6 +1,6 @@
 {
     "name": "em-util",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Common methods based on JavaScript by ECMAScript 2015",
     "main": "index.js",
     "scripts": {
