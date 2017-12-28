@@ -1,5 +1,5 @@
 /*!
- * em-util.js v1.0.2
+ * em-util.js v1.0.3
  * 2017 Ed Me(603803799@qq.com)
  * Released under the MIT License.
  */
