@@ -1,7 +1,7 @@
 {
     "name": "em-util",
-    "version": "1.0.3",
-    "description": "Common methods based on JavaScript by ECMAScript 2015",
+    "version": "1.0.4",
+    "description": "Common methods based on JavaScript by ECMAScript 2016",
     "main": "index.js",
     "scripts": {
         "example": "... node READEME.md"
