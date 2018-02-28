@@ -143,7 +143,19 @@ const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.use
     },
     toHalf () { // 取半
       return this >> true
-    }
+    },
+    toCapital (n) { // 将数字转为大写
+         const cnum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+         let s = ''
+         n = n.toString() // 数字转为字符串
+         for (let [i,x] of n.entries()) s += cnum[parseInt(n.charAt(i))]
+         if (s.length === 2)  /*两位数的时候*/if (s.charAt(1) === cnum[0]) {// 如果个位数是0的时候，令改成十
+           s = s.charAt(0) + cnum[10]
+           // 如果是一十改成十
+           s === (cnum[1] + cnum[10]) && (s = cnum[10])
+         } else if (s.charAt(0) === cnum[1]) s = cnum[10] + s.charAt(1)// 如果十位数是一的话改成十
+         return s
+       }
   }]
 
 if ('HTMLElement' in this) for (let [key, value] of Object.entries(elFn)) HTMLElement.prototype[key] || (HTMLElement.prototype[key] = value)
