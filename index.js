@@ -126,6 +126,11 @@ const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.use
     },
     toString (join = '') { // 链接成字符串
       return this.join(join)
+    },
+    attrSort (attr, rev = 1) {
+     return rev = rev ? 1 : -1, (a, b) => {
+       return [a, b] = [a[attr], b[attr]], a < b ? rev * -1 : a > b ? rev * 1 : 0
+     }
     }
   }, { // numFn
     isNull () {
