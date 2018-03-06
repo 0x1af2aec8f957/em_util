@@ -11,7 +11,7 @@
  typeof define === 'function' && define.amd ? define(factory) : (global.util = factory());
  })(this, function () { */
 
-const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.userAgent.toLowerCase(),
+const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!window && window.navigator.userAgent.toLowerCase(),
   { // elFn
     escape () { // 需要借助he模块
       return require('he').encode(String(this), {useNamedReferences: false}) // https://mths.be/he v1.1.1
@@ -128,9 +128,9 @@ const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.use
       return this.join(join)
     },
     attrSort (attr, rev = 1) {
-     return rev = rev ? 1 : -1, (a, b) => {
-       return [a, b] = [a[attr], b[attr]], a < b ? rev * -1 : a > b ? rev * 1 : 0
-     }
+      return rev = rev ? 1 : -1, this.sort((a, b) => {
+        return [a, b] = [a[attr], b[attr]], a < b ? rev * -1 : a > b ? rev * 1 : 0
+      })
     }
   }, { // numFn
     isNull () {
@@ -163,11 +163,7 @@ const [UA, elFn, strFn, objFn, arrFn, numFn] = [!!window && window.navigator.use
        }
   }]
 
-if ('HTMLElement' in this) for (let [key, value] of Object.entries(elFn)) HTMLElement.prototype[key] || (HTMLElement.prototype[key] = value)
-if ('String' in this) for (let [key, value] of Object.entries(strFn)) String.prototype[key] || (String.prototype[key] = value)
-if ('Object' in this) for (let [key, value] of Object.entries(objFn)) Object.prototype[key] || (Object.prototype[key] = value)
-if ('Array' in this) for (let [key, value] of Object.entries(arrFn)) Array.prototype[key] || (Array.prototype[key] = value)
-if ('Number' in this) for (let [key, value] of Object.entries(numFn)) Number.prototype[key] || (Number.prototype[key] = value)
+for (let x of ['HTMLElement','String','Object','Array','Number']) if (x in this) for (let [key, value] of Object.entries(eval(`${x}_fn`))) eval(x).prototype[key] || (eval(x).prototype[key] = value)
 
 export default Object.assign({
   config ({screenWidth: ELEMENT_WIDTH = 640} = {}) {
