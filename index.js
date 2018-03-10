@@ -45,7 +45,7 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
     format () { // 模拟Mustache模板语法
       const regExp = new RegExp(/\{\{(\S*)\}\}/, 'g') // 全局查找{{}}之间的正则表达式
       let result = null // 全局查找{{}}之间的内容
-      while ((result = regExp.exec(this)) !== null) /* result为每次找到的内容 */ this.replaceAll('{{' + result + '}}', eval(result))
+      while ((result = regExp.exec(this)) !== null) /* result为每次找到的内容 */ this.replace(new RegExp('{{' + result + '}}', 'g'), eval(result.replace(/\s/g, '')/* 去掉所有空格 */))
       return this
     }
   }, { // objFn
