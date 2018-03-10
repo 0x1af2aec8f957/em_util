@@ -41,6 +41,12 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
     },
     toArry (separator = '', length) { // 分割成数组
       return this.split(separator, length)
+    },
+    format () { // 模拟Mustache模板语法
+      const regExp = new RegExp(/\{\{(\S*)\}\}/, 'g') // 全局查找{{}}之间的正则表达式
+      let result = null // 全局查找{{}}之间的内容
+      while ((result = regExp.exec(this)) !== null) /* result为每次找到的内容 */ this.replaceAll('{{' + result + '}}', eval(result))
+      return this
     }
   }, { // objFn
     delete (key) { // 返回被删除的元素，是一个value！
