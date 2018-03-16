@@ -108,9 +108,9 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
     },
     noRepeat (key) { // 数组去重
       if (key) { // 合并相同key的数据
-        const list=[]
+       const list=[]
       	for (let x of this) {
-      		const i = list.length - 1
+      		  const i = list.length - 1
           if (i >= 0 && list[i][key] === x[key]) {
             delete x[key]
             list[i].content.push(x)
