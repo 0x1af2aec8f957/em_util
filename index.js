@@ -1,5 +1,5 @@
 /*!
- * em-util.js v1.0.6
+ * em-util.js v1.0.7
  * 2017 Ed Me(603803799@qq.com)
  * Released under the MIT License.
  */
@@ -106,7 +106,23 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
     includes () {
       return !!~this.indexOf(e)
     },
-    noRepeat () { // 数组去重
+    noRepeat (key) { // 数组去重
+      if (key) { // 合并相同key的数据
+        const list=[]
+      	for (let x of this) {
+      		const i = list.length - 1
+          if (i >= 0 && list[i][key] === x[key]) {
+            delete x[key]
+            list[i].content.push(x)
+          }else {
+            const obj = {[key]:x[key]}
+            delete x[key]
+            obj.content = x
+            list.push(obj)
+          }
+      	}
+      	return list
+      }
       return [...new Set(this)]
     },
     repeat () { //复制数组

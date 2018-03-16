@@ -1,4 +1,4 @@
-> em-util.js@1.0.6
+> em-util.js@1.0.7
 
 ## install em-util.js
 
@@ -23,4 +23,3 @@ console.dir(util);
 [MIT](http://opensource.org/licenses/MIT)
 
 [em-util.js](https://github.com/noteScript/em_util.git)
-
