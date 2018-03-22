@@ -1,5 +1,5 @@
 /*!
- * em-util.js v1.0.7
+ * em-util.js v1.0.9
  * 2017 Ed Me(603803799@qq.com)
  * Released under the MIT License.
  */
@@ -185,7 +185,7 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
        }
   }]
 
-for (let x of ['HTMLElement','String','Object','Array','Number']) if (x in this) for (let [key, value] of Object.entries(eval(`${x}_fn`))) eval(x).prototype[key] || (eval(x).prototype[key] = value)
+for (let x of ['HTMLElement','String','Object','Array','Number']) if (x in window) for (let [key, value] of Object.entries(eval(`${x}_fn`))) eval(x).prototype[key] || (eval(x).prototype[key] = value)
 
 export default Object.assign({
   config ({screenWidth: ELEMENT_WIDTH = 640} = {}) {
