@@ -1,5 +1,5 @@
 /*!
- * em-util.js v1.0.9
+ * em-util.js v1.1.0
  * 2017 Ed Me(603803799@qq.com)
  * Released under the MIT License.
  */
@@ -11,7 +11,7 @@
  typeof define === 'function' && define.amd ? define(factory) : (global.util = factory());
  })(this, function () { */
 
-const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!window && window.navigator.userAgent.toLowerCase(),
+const [UA, HTMLElement_fn, String_fn, Array_fn, Number_fn] = [!!window && window.navigator.userAgent.toLowerCase(),
   { // elFn
     escape () { // 需要借助he模块
       return require('he').encode(String(this), {useNamedReferences: false}) // https://mths.be/he v1.1.1
@@ -47,47 +47,6 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
       let result = null // 全局查找{{}}之间的内容
       while ((result = regExp.exec(this)) !== null) /* result为每次找到的内容 */ this.replace(new RegExp('{{' + result[0] + '}}', 'g'), eval(result[0].replace(/\s/g, '')/* 去掉所有空格 */))
       return this
-    }
-  }, { // objFn
-    delete (key) { // 返回被删除的元素，是一个value！
-      const data = this[key]
-      return delete this[key], data
-    },
-    keys () {
-      return Object.keys(this)
-    },
-    values () {
-      return Object.values(this)
-    },
-    entries () {
-      return Object.entries(this)
-    },
-    /* repeat() { //复制对象[ES7]
-        return {...this, ...this}
-    }, */
-    toJSON () { // 转成JSON字符串
-      return JSON.stringify(this)
-    },
-    /*!
-     * 对于同一个对象，防止扩展-->密封-->冻结这种操作是不可逆的。一旦该对象被冻结，是无法恢复到防止扩展或密封状态的。一旦该对象被密封，是无法恢复到防止扩展状态的。一旦对象被锁定，它将无法解锁!
-     !*/
-    isExtensible () { // 检测对象是否可扩展
-      return Object.isExtensible(this)
-    },
-    preventExtensions () { // 防止扩展[禁止为对象添加属性和方法。但已存在的属性和方法可以被修改或删除]
-      return Object.preventExtensions(this)
-    },
-    isSealed () { // 检测对象是否密封
-      return Object.isSealed(this)
-    },
-    seal () { // 密封[禁止为对象删除已存在的属性和方法。被密封的对象也是不可扩展的]
-      return Object.seal(this)
-    },
-    isFrozen () { // 检测对象是否冻结
-      return Object.isFrozen(this)
-    },
-    freeze () { // 冻结[禁止为对象修改已存在的属性和方法。所有字段均只读。被冻结的对象也是不可扩展和密封的]
-      return Object.freeze(this)
     }
   }, { // arrFn
     delete (index, number = 1) { // 返回被删除的元素，是一个数组！
@@ -185,7 +144,7 @@ const [UA, HTMLElement_fn, String_fn, Object_fn, Array_fn, Number_fn] = [!!windo
        }
   }]
 
-for (let x of ['HTMLElement','String','Object','Array','Number']) if (x in window) for (let [key, value] of Object.entries(eval(`${x}_fn`))) eval(x).prototype[key] || (eval(x).prototype[key] = value)
+for (let x of ['HTMLElement','String','Array','Number']) if (x in window) for (let [key, value] of Object.entries(eval(`${x}_fn`))) eval(x).prototype[key] || (eval(x).prototype[key] = value)
 
 export default Object.assign({
   config ({screenWidth: ELEMENT_WIDTH = 640} = {}) {
