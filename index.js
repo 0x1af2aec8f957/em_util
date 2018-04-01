@@ -156,10 +156,8 @@ export default Object.assign({
   }
   ,
   _output (e) { // 输出(线下输出，线上关闭)
-    return (!!~location.origin.indexOf('test') ||
-      !!~location.origin.indexOf('http://localhost:') ||
-      !!~location.origin.indexOf('http://192.168.') ||
-      !!~location.origin.indexOf('http://127.0.0.1:')) && console.log(` % ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
+    const Debug = !!~location.origin.indexOf('http://localhost:') || !!~location.origin.indexOf('http://192.168.') || !!~location.origin.indexOf('http://127.0.0.1:')
+    return Debug && console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
   }
   ,
   _typeOf (obj) { // 精准判断数据类型
