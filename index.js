@@ -253,6 +253,12 @@ export default Object.assign({
     }
     return null
   }
+ ,
+ _delCookie (c_name) { // 删除cookie
+        const exp = new Date(), cval = this._getCookie(c_name)
+        exp.setTime(exp.getTime() - 1) // 时间月份-1
+        return cval && (document.cookie = name + '=' + cval + ';expires=' + exp.toUTCString())
+  }
 }, UA ? { // 浏览器方法
   _inBrowser () { // 是否是浏览器环境
     return !!window
