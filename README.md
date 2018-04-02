@@ -1,4 +1,4 @@
-> em-util.js@1.1.1
+> em-util.js@1.1.2
 
 ## install em-util.js
 
