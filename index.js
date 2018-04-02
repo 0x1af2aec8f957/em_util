@@ -240,7 +240,7 @@ export default Object.assign({
   }
   ,
   _getCookie (c_name) { // 获取cookie
-    if (document.cookie.length > 0) {
+    if (!!document.cookie.length) {
       let c_start = document.cookie.indexOf(c_name + '=')
       if (!!~c_start) {
         c_start = c_start + c_name.length + 1
