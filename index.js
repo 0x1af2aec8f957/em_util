@@ -234,7 +234,7 @@ export default Object.assign({
     const [r, d] = [new RegExp(reg), data]
     return r.test(d)
   },
-  setCookie(c_name, value, expiredays = null) { // 设置cookie
+  _setCookie(c_name, value, expiredays = null) { // 设置cookie
      const exdate = new Date(),timScript = exdate.getTime() + 86400000 /* 解决Safari无法直接在date.getDate()上加小于一的天数，转换成毫秒而非直接使用天数 */
      return  document.cookie = c_name + '=' + encodeURI(value) + ((expiredays === null) ? '' : ';expires=' + new Date(timScript).toGMTString()), null
   },
