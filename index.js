@@ -1,5 +1,5 @@
 /*!
- * em-util.js v1.1.2
+ * em-util.js v1.1.3
  * 2017 Ed Me(603803799@qq.com)
  * Released under the MIT License.
  */
@@ -33,7 +33,7 @@ const [UA, HTMLElement_fn, String_fn, Array_fn, Number_fn] = [!!window && window
     },
     getTime() { // 时间转时间戳[单位:s]
       // this = '2014-04-23 18:55:49:123';
-      return Date.parse(new Date(this))
+      return Date.parse(new Date(this.replace(/-/g, "/")))
     },
     includes() { // 字符串包含[解决babel未转码成功的BUG]
       return !!~this.indexOf(e)
