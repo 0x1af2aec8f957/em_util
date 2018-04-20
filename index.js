@@ -1,5 +1,5 @@
 /*!
- * em-util.js v1.1.3
+ * em-util.js v1.1.4
  * 2017 Ed Me(603803799@qq.com)
  * Released under the MIT License.
  */
@@ -262,7 +262,7 @@ export default Object.assign({
         cval = decodeURI(document.cookie.substring(c_start, c_end))
       }
     }
-    exp.setTime(exp.getTime() - 1) // 时间月份-1
+    exp.setTime(exp.getTime() - 1) // 立即删除，时间戳减一
     return cval && (document.cookie = name + '=' + cval + ';expires=' + exp.toUTCString())
   }
 }, UA ? { // 浏览器方法
