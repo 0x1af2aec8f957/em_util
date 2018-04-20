@@ -237,7 +237,7 @@ export default Object.assign({
   _setCookie(c_name, value, expiredays) { // 设置cookie
     let exdate = new Date()
     return exdate.setDate(exdate.getDate() + expiredays),
-      document.cookie = c_name + '=' + escape(value) + ((expiredays === null) ? '' : ';expires=' + exdate.toGMTString()),
+      document.cookie = c_name + '=' + encodeURI(value) + ((expiredays === null) ? '' : ';expires=' + exdate.toGMTString()),
       null
   },
   _getCookie(c_name) { // 获取cookie
@@ -247,7 +247,7 @@ export default Object.assign({
         c_start = c_start + c_name.length + 1
         let c_end = document.cookie.indexOf(';', c_start)
         if (!~c_end) c_end = document.cookie.length
-        return unescape(document.cookie.substring(c_start, c_end))
+        return decodeURI(document.cookie.substring(c_start, c_end))
       }
     }
     return null
@@ -261,7 +261,7 @@ export default Object.assign({
         c_start = c_start + c_name.length + 1
         let c_end = document.cookie.indexOf(';', c_start)
         if (!~c_end) c_end = document.cookie.length
-        cval = unescape(document.cookie.substring(c_start, c_end))
+        cval = decodeURI(document.cookie.substring(c_start, c_end))
       }
     }
     exp.setTime(exp.getTime() - 1) // 时间月份-1
