@@ -20,20 +20,20 @@ const [UA, HTMLElement_fn, String_fn, Array_fn, Number_fn] = [!!window && window
     }
   }, { // strFn
     replaceAll(search, replacement) { // 全局替换
-      return this.replace(new RegExp(search, 'g'), replacement)
+      return this.replace(new RegExp(search, 'gim'), replacement)
     },
     toNumber() { // 提取数字(不支持负数，支持小数)
       return this.replace(/[^0-9|.]/ig, '') * true
     },
     trimAll() { // 去掉所有空格
-      return this.replace(/\s/g, '')
+      return this.replace(/\s/gm, '')
     },
     isNull() { // 是否为空[已经去掉空格后的判断]
-      return !this.replace(/\s/g, '').length
+      return !this.replace(/\s/gm, '').length
     },
     getTime() { // 时间转时间戳[单位:s]
       // this = '2014-04-23 18:55:49:123';
-      return Date.parse(new Date(this.replace(/-/g, "/")))
+      return Date.parse(new Date(this.replace(/-/g, "/")/* 解决Safari无法识别"-"的字符串时间格式 */))
     },
     includes() { // 字符串包含[解决babel未转码成功的BUG]
       return !!~this.indexOf(e)
@@ -45,10 +45,7 @@ const [UA, HTMLElement_fn, String_fn, Array_fn, Number_fn] = [!!window && window
       return this.split(separator, length)
     },
     format() { // 模拟Mustache模板语法
-      const regExp = new RegExp(/\{\{(\S*)\}\}/, 'g') // 全局查找{{}}之间的正则表达式
-      let result = null // 全局查找{{}}之间的内容
-      while ((result = regExp.exec(this)) !== null) /* result为每次找到的内容 */ this.replace(new RegExp('{{' + result[0] + '}}', 'g'), eval(result[0].replace(/\s/g, '') /* 去掉所有空格 */ ))
-      return this
+      return this.replace(/\{([^\}]+)\}\}/gm, (all, self) => eval(self.match(/[^(\{|\}|\s)]/gm).join(''))/* ECMAScript v3 */)
     }
   }, { // arrFn
     delete(index, number = 1) { // 返回被删除的元素，是一个数组！
@@ -167,7 +164,7 @@ export default Object.assign({
     return (new Date()).valueOf()
   },
   _output(e) { // 输出(线下输出，线上关闭)
-    const Debug = !!~location.origin.indexOf('http://localhost:') || !!~location.origin.indexOf('http://192.168.') || !!~location.origin.indexOf('http://127.0.0.1:')
+    const Debug = !!~location.origin.indexOf('http://localhost:') || !!~location.origin.indexOf('http://192.168.') || !!~location.origin.indexOf('http://127.0.0.1:') || !!~location.origin.indexOf('http://0.0.0.0:')
     return Debug && console.log(`%ctitle：${e.title}\n%cfrom：${document.title}\n%cdata：%o`, 'color:#cc7832;border-bottom:1px solid #57a3f3', 'color:#6a7c4e;border-bottom:1px solid #f7f7f7', 'color:#d24f4d', e.content)
   },
   _typeOf(obj) { // 精准判断数据类型
