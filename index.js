@@ -235,7 +235,7 @@ export default Object.assign({
     return r.test(d)
   },
   _setCookie(c_name, value, expiredays = null) { // 设置cookie
-     const exdate = new Date(),timScript = exdate.getTime() + 86400000 /* 解决Safari无法直接在date.getDate()上加小于一的天数，转换成毫秒而非直接使用天数 */
+     const exdate = new Date(),timScript = exdate.getTime() + (86400000 * expiredays) /* 解决Safari无法直接在date.getDate()上加小于一的天数，转换成毫秒而非直接使用天数 */
      return  document.cookie = c_name + '=' + encodeURI(value) + ((expiredays === null) ? '' : ';expires=' + new Date(timScript).toGMTString()), null
   },
   _getCookie(c_name) { // 获取cookie
