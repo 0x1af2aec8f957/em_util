@@ -44,8 +44,11 @@ const [UA, HTMLElement_fn, String_fn, Array_fn, Number_fn] = [!!window && window
     toArry(separator = '', length) { // 分割成数组
       return this.split(separator, length)
     },
-    format() { // 模拟Mustache模板语法
-      return this.replace(/\{([^\}]+)\}\}/gm, (all, self) => eval(self.match(/[^(\{|\}|\s)]/gm).join(''))/* ECMAScript v3 */)
+    format( obj ) { // 模拟Mustache模板语法
+      return this.replace(/\{([^\}]+)\}\}/gm, (all, self) => { // ECMAScript v3
+       const str = self.match(/[^(\{|\}|\s)]/gm).join('')
+       return eval(obj ? obj[str] : str)
+      })
     }
   }, { // arrFn
     delete(index, number = 1) { // 返回被删除的元素，是一个数组！
