@@ -57,6 +57,9 @@ const [UA, HTMLElement_fn, String_fn, Array_fn, Number_fn] = [!!window && window
     isNull() { // 是否为空
       return !this.length
     },
+    lastItem() { // 最后一项
+      return this.slice(-1)[0]
+    },
     clear() { // 清空数组
       return this.length = false
     },
